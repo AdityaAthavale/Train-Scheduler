@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Schedular</title>
+
+    <!-- Include local css
+    <link rel="stylesheet" href="./assets//css/style.css"> -->
+
+    <!-- Include Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- Our local Game.js -->
+    <script type="text/javascript" src="./javascript/trainSchedular.js"></script>
+
+</head>
+<body>
+
+    <div class='container'>
+            <button id="addTrainButton" type="button" class="btn btn-primary" data-target="#exampleModal">Add Train</button>
+    </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Train</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="train-name" class="col-form-label">Train Name:</label>
+            <input type="text" class="form-control" id="train-name">
+          </div>
+          <div class="form-group">
+            <label for="destination-text" class="col-form-label">Destination:</label>
+            <textarea class="form-control" id="destination-name"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="firstTrainTime" class="col-form-label">Starts At:</label>
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker3'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Add Train</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
