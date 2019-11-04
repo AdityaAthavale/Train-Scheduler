@@ -12,12 +12,13 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   let database = firebase.database()
   let trains = new Array()
-  
+
 $(document).ready(function() {
     $('#addTrainButton').click(function() {
         $('#exampleModal').modal('show')
     })
     database.ref('/trains').on('value', function(snap) {
+        trains = new Array()
         snap.forEach(element => {
             let startHours = parseInt (element.val().startsAt.split(":")[0].trim())
             let startMinutes = parseInt (element.val().startsAt.split(":")[1].trim())
@@ -29,17 +30,11 @@ $(document).ready(function() {
             while(totalStartMinutes < totalCurrentMinutes) {
                 totalStartMinutes = totalStartMinutes + element.val().frequency
             }
-            if (!trains.includes({
+            trains.push({
                 trainName: element.val().trainName,
                 destination: element.val().destination,
                 arrivesIn: (totalStartMinutes - totalCurrentMinutes)
-            })) {
-                trains.push({
-                    trainName: element.val().trainName,
-                    destination: element.val().destination,
-                    arrivesIn: (totalStartMinutes - totalCurrentMinutes)
-                })
-            }
+            })
         })
         trains.sort((a, b) => (a.arrivesIn > b.arrivesIn) ? 1 : -1)
        displayTable()
@@ -47,6 +42,8 @@ $(document).ready(function() {
 })
 
 function displayTable() {
+    $('#table').find('tbody').detach(); 
+    $('#table').append($('<tbody>'));
     for(let i=0; i<trains.length; i++) {
         let trainName = $('<td>' + trains[i].trainName + '</td>')
         let frequency = $('<td>' + trains[i].arrivesIn + ' Minutes</td>')
