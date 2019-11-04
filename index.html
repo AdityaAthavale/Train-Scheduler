@@ -6,69 +6,103 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Train Schedular</title>
 
-    <!-- Include local css
-    <link rel="stylesheet" href="./assets//css/style.css"> -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Include Bootstrap CSS -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- Drop Down -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js"></script>
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <!-- Moment.js Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-    <!-- Our local Game.js -->
+    <!-- Our local trainSchedular.js -->
     <script type="text/javascript" src="./javascript/trainSchedular.js"></script>
+
+    <!-- Date Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 
 </head>
 <body>
 
-    <div class='container'>
-            <button id="addTrainButton" type="button" class="btn btn-primary" data-target="#exampleModal">Add Train</button>
-    </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Train</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class='container'>
+    <table class="table table-sm table-hover" id='table'>
+      <thead>
+        <tr>
+          <th scope="col">Train Name</th>
+          <th scope="col">Destination</th>
+          <th scope="col">Arriving In</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div>
+        <button id="addTrainButton" type="button" class="btn btn-primary" data-target="#exampleModal">Add Train</button>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="train-name" class="col-form-label">Train Name:</label>
-            <input type="text" class="form-control" id="train-name">
-          </div>
-          <div class="form-group">
-            <label for="destination-text" class="col-form-label">Destination:</label>
-            <textarea class="form-control" id="destination-name"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="firstTrainTime" class="col-form-label">Starts At:</label>
-            <div class="row">
-                <div class='col-sm-6'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker3'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
-                        </div>
+  </div>
+  
+
+<!-- Model to add Train -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Train</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="train-name" class="col-form-label">Train Name:</label>
+              <input type="text" class="form-control" id="train-name">
+            </div>
+            <div class="form-group">
+              <label for="destination-text" class="col-form-label">Destination:</label>
+              <textarea class="form-control" id="destination-name"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="firstTrainTime" class="col-form-label">Starts At:</label>
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input id= "date-text" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div id="dateInput" class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
                 </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Add Train</button>
+            <div class="form-group">
+                <div class="btn-group">
+                    <label for="destination-text" class="col-form-label">Frequency:</label>
+                    <button id="dropDownButton" type="button" class="btn btn-danger">Select</button>
+                    <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">                      
+                      <p class="dropdown-item">30 Minutes</p>
+                      <p class="dropdown-item">1 Hour</p>
+                      <p class="dropdown-item">2 Hours</p>
+                      <p class="dropdown-item">12 Hours</p>
+                      <p class="dropdown-item">24 Hours</p>
+                    </div>
+                  </div>    
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- data-dismiss="modal" -->
+          <button id="submitButton" type="button" class="btn btn-primary">Add Train</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
 </body>
 </html>
